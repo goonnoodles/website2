@@ -4,25 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Project Gallery | Fliss Construction</title>
-    <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; }
-    header { background-color: #1f2937; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
-    nav a { margin: 0 15px; color: white; text-decoration: none; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    .hero {
-      background: url('https://images.unsplash.com/photo-1581091870620-3b63cdbb1f89?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-      height: 60vh; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px;
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1599427308785-95c7ed5d08ae?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .hero h1 { font-size: 3rem; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 8px; }
-    .hero p { font-size: 1.2rem; margin-top: 15px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 6px; }
-    section { padding: 40px 20px; text-align: center; }
-    .gallery img {
-      width: 100%; max-width: 300px; margin: 10px; border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    header {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .contact { background-color: #e2e8f0; padding: 40px 20px; }
-    footer { text-align: center; padding: 20px; background: #1f2937; color: white; }
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px;
+      border-radius: 12px;
+    }
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      width: 80%;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+    .carousel img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease-in-out;
+    }
+    footer {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .carousel-button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -34,10 +87,32 @@
       <a href="contact.html">Contact Us</a>
     </nav>
   </header>
-  <main style="padding: 20px;">
+  <main>
     <h1>Project Gallery</h1>
-    <p>Here are some snapshots of our recent work:</p>
-    <img src="https://images.unsplash.com/photo-1597006721972-4f5b2b3f7e2f?auto=format&fit=crop&w=800&q=80" alt="Job 1" style="max-width: 100%; height: auto; margin-top: 20px;" />
+    <div class="carousel">
+      <img src="https://images.unsplash.com/photo-1560793223-c9d8a0c3ba97?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjg0MHwwfDF8c2VhcmNofDJ8fGJ1aWxkaW5nfGVufDB8fHx8fDE2NTkwODk0MDA&ixlib=rb-1.2.1&q=80&w=1080" alt="Home project 1">
+      <img src="https://images.unsplash.com/photo-1586892090154-d27850296b88?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjg0MHwwfDF8c2VhcmNofDJ8fGJ1aWxkaW5nfGVufDB8fHx8fDE2NTkwODk0MDg&ixlib=rb-1.2.1&q=80&w=1080" alt="Home project 2">
+      <img src="https://images.unsplash.com/photo-1556043189-6b081a421d09?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjg0MHwwfDF8c2VhcmNofDdffGJ1aWxkaW5nfGVufDB8fHx8fDE2NTkwODk0MDI&ixlib=rb-1.2.1&q=80&w=1080" alt="Home project 3">
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-button" onclick="moveSlide(-1)">❮</button>
+      <button class="carousel-button" onclick="moveSlide(1)">❯</button>
+    </div>
   </main>
+  <footer>
+    &copy; <span id="year"></span> Fliss Construction. All rights reserved.
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    let slideIndex = 0;
+
+    function moveSlide(step) {
+      const images = document.querySelectorAll('.carousel img');
+      slideIndex = (slideIndex + step + images.length) % images.length;
+      for (let i = 0; i < images.length; i++) {
+        images[i].style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+      }
+    }
+  </script>
 </body>
 </html>
