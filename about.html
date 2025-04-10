@@ -4,25 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us | Fliss Construction</title>
-    <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; }
-    header { background-color: #1f2937; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
-    nav a { margin: 0 15px; color: white; text-decoration: none; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    .hero {
-      background: url('https://images.unsplash.com/photo-1581091870620-3b63cdbb1f89?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-      height: 60vh; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px;
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1599427308785-95c7ed5d08ae?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .hero h1 { font-size: 3rem; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 8px; }
-    .hero p { font-size: 1.2rem; margin-top: 15px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 6px; }
-    section { padding: 40px 20px; text-align: center; }
-    .gallery img {
-      width: 100%; max-width: 300px; margin: 10px; border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    header {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .contact { background-color: #e2e8f0; padding: 40px 20px; }
-    footer { text-align: center; padding: 20px; background: #1f2937; color: white; }
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px;
+      border-radius: 12px;
+    }
+    footer {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
@@ -34,9 +60,15 @@
       <a href="contact.html">Contact Us</a>
     </nav>
   </header>
-  <main style="padding: 20px;">
+  <main>
     <h1>About Us</h1>
-    <p>Fliss Construction is a homegrown construction company based in Cape Coral, Florida. We take pride in every nail, screw, and beam — and it shows in the homes we build. With years of experience in remodeling, custom builds, and structural enhancements, we’re committed to quality craftsmanship and honest service.</p>
+    <p>Fliss Construction is a homegrown construction company based in Cape Coral, Florida.</p>
+    <p>We take pride in every nail, screw, and beam — and it shows in the homes we build.</p>
+    <p>With years of experience in remodeling, custom builds, and structural enhancements, we’re committed to quality craftsmanship and honest service.</p>
   </main>
+  <footer>
+    &copy; <span id="year"></span> Fliss Construction. All rights reserved.
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
