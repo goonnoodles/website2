@@ -4,25 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us | Fliss Construction</title>
-    <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; }
-    header { background-color: #1f2937; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
-    nav a { margin: 0 15px; color: white; text-decoration: none; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    .hero {
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
       background: url('background/keyw.png') no-repeat center center/cover;
-      height: 60vh; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .hero h1 { font-size: 3rem; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 8px; }
-    .hero p { font-size: 1.2rem; margin-top: 15px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 6px; }
-    section { padding: 40px 20px; text-align: center; }
-    .gallery img {
-      width: 100%; max-width: 300px; margin: 10px; border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    header {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
-    .contact { background-color: #e2e8f0; padding: 40px 20px; }
-    footer { text-align: center; padding: 20px; background: #1f2937; color: white; }
+    h2 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+    nav {
+      margin-top: 15px;
+    }
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 60px 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px 10%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 500px;
+      margin-top: 20px;
+    }
+    input, textarea {
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    footer {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -30,22 +104,23 @@
     <h2>Fliss Construction</h2>
     <nav>
       <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
       <a href="gallery.html">Project Gallery</a>
+      <a href="about-us.html">About Us</a>
     </nav>
   </header>
-  <main style="padding: 20px;">
+  <main>
     <h1>Contact Us</h1>
-    <p>We’d love to hear from you. Fill out the form below and we’ll get back to you soon.</p>
-    <form action="https://formspree.io/f/your-form-id" method="POST" style="max-width: 400px;">
-      <label>Name</label><br />
-      <input type="text" name="name" required style="width:100%;padding:10px;margin:10px 0;" /><br />
-      <label>Email</label><br />
-      <input type="email" name="_replyto" required style="width:100%;padding:10px;margin:10px 0;" /><br />
-      <label>Message</label><br />
-      <textarea name="message" rows="5" required style="width:100%;padding:10px;margin:10px 0;"></textarea><br />
-      <button type="submit" style="padding:10px 20px;">Send</button>
+    <p>If you have any questions or would like to discuss your upcoming project, please get in touch!</p>
+    <form action="submit_form.php" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+      <button type="submit">Send Message</button>
     </form>
   </main>
+  <footer>
+    &copy; <span id="year"></span> Fliss Construction. All rights reserved.
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
