@@ -111,10 +111,11 @@
   <main>
     <h1>Contact Us</h1>
     <p>If you have any questions or would like to discuss your upcoming project, please get in touch!</p>
-    <form action="submit_form.php" method="POST">
+    <form action="https://formspree.io/f/xdkejgqd" method="POST">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+      <input type="hidden" name="_subject" value="New message from contact form">
       <button type="submit">Send Message</button>
     </form>
   </main>
