@@ -28,15 +28,20 @@
       margin: 0;
       font-weight: 600;
     }
-    nav {
-      margin-top: 15px;
-    }
-    nav a {
-      margin: 0 15px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
+   nav {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 30px; /* more modern and readable than margin on links */
+  flex-shrink: 1;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap; /* Keeps each link on one line */
+}
     nav a:hover {
       text-decoration: underline;
     }
