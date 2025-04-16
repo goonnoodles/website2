@@ -28,19 +28,20 @@
       margin: 0;
       font-weight: 600;
     }
-   nav {
+nav {
   margin-top: 15px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; /* allow wrap on small screens */
   justify-content: center;
-  gap: 30px; /* more modern and readable than margin on links */
-  flex-shrink: 1;
+  gap: 20px;
+  padding: 10px;
 }
 nav a {
   color: white;
   text-decoration: none;
   font-weight: bold;
-  white-space: nowrap; /* Keeps each link on one line */
+  white-space: nowrap;
+  font-size: 1rem;
 }
     nav a:hover {
       text-decoration: underline;
