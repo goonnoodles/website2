@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | Fliss Construction</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('background/keyw.png') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      margin: 0;
+      font-weight: 600;
+    }
+nav {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap; /* allow wrap on small screens */
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px;
+      border-radius: 12px;
+    }
+    footer {
+      background-color: rgba(31, 41, 55, 0.9);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h2>Fliss Construction</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Project Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+</header>
+  <main>
+    <h1>Budget</h1>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTwhqw8OeDavabC-wW-ZvomshlkOMSTDobi8EMRV-DGgOu2mesf00gxaM3_YC5W2yjiweNpgfbPvRP6/pubhtml?widget=true&amp;headers=false"></iframe>
+  </main>
+  <footer>
+    &copy; <span id="year"></span> Fliss Construction. All rights reserved.
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
