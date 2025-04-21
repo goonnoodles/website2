@@ -1,11 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Upload Your Wedding Photos</title>
-  <meta http-equiv="refresh" content="5;url=http://poppin.synology.me:2342/library/albums/ast690aiqkh5479u/view">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1em;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #7b3f00;
+    }
+    .step {
+      margin-bottom: 2em;
+    }
+    .step img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .button-container {
+      text-align: center;
+      margin: 2em 0;
+    }
+    .upload-btn {
+      background-color: #7b3f00;
+      color: white;
+      padding: 1em 2em;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    .upload-btn:hover {
+      background-color: #5e2f00;
+    }
+  </style>
+  <script>
+    setTimeout(() => {
+      window.location.href = "http://poppin.synology.me:2342/library/browse";
+    }, 10000); // Redirect after 10 seconds
+  </script>
 </head>
 <body>
-  <h2>Uploading Wedding Photos?</h2>
-  <p>You will be redirected shortly. Once there, tap the upload icon in the top right corner.</p>
+  <h1>📸 Share Your Wedding Photos!</h1>
+  <p style="text-align: center;">We'd love to see the photos you took! Please follow the simple steps below to upload them to our gallery.</p>
+
+  <div class="step">
+    <h2>Step 1: Tap the three dots (⋮) in the top right</h2>
+    <img src="Screenshot1.jpg" alt="Screenshot showing the menu icon"/>
+  </div>
+
+  <div class="step">
+    <h2>Step 2: Tap the upload icon</h2>
+    <img src="Screenshot2.jpg" alt="Screenshot showing the upload button"/>
+  </div>
+
+  <div class="button-container">
+    <a class="upload-btn" href="http://poppin.synology.me:2342/library/browse" target="_blank">
+      Go to Upload Page
+    </a>
+  </div>
 </body>
 </html>
