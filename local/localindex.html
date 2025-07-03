@@ -12,6 +12,17 @@
     <input type="text" placeholder="Search Google or type a URL" id="searchBar" onkeypress="handleKeyPress(event)" />
     <button id="toggleMode">Toggle Dark Mode</button>
   </div>
+  <input type="text" id="gptQuery" placeholder="Ask ChatGPT..." />
+<button onclick="searchChatGPT()">Go</button>
+
+<script>
+  function searchChatGPT() {
+    const query = document.getElementById('gptQuery').value;
+    const encoded = encodeURIComponent(query);
+    window.open(`https://chat.openai.com/?model=gpt-4&prompt=${encoded}`, '_blank');
+  }
+</script>
+
   <div class="grid">
     <a class="icon" href="https://www.google.com">
       <img src="https://www.google.com/favicon.ico" alt="Google" />
