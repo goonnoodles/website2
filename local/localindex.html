@@ -81,5 +81,22 @@
     }
   };
 </script>
+<script>
+  function searchChatGPT() {
+    const query = document.getElementById('gptQuery').value.trim();
+    if (query) {
+      const encoded = encodeURIComponent(query);
+      const url = `https://chat.openai.com/?q=${encoded}`;
+      window.open(url, '_blank'); // opens in a new tab
+    }
+  }
+
+  // Optional: Press Enter to submit
+  document.getElementById('gptQuery').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      searchChatGPT();
+    }
+  });
+</script>
 </body>
 </html>
