@@ -57,9 +57,12 @@
       align-items: stretch;
     }
 
-    input[type="text"], button
-
-</head>
+    input[type="text"], button {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+</style>
 <body>
   <div class="top-bar">
     <input type="text" placeholder="Search Google or type a URL" id="searchBar" onkeypress="handleKeyPress(event)" autofocus/>
