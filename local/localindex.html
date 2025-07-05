@@ -72,5 +72,14 @@
     </a>
   </div>
   <script src="script.js"></script>
+<script>
+  window.onload = function () {
+    const searchBox = document.getElementById('searchBar');
+    if (searchBox) {
+      searchBox.focus();
+      searchBox.select(); // Optional: highlights placeholder or existing input
+    }
+  };
+</script>
 </body>
 </html>
