@@ -58,15 +58,22 @@
     background-color: #e2e6ea;
   }
 
+  /* ⬇️ MOBILE STYLES START HERE */
   @media (max-width: 500px) {
     .top-bar {
       flex-direction: column;
       align-items: stretch;
     }
 
-    input[type="text"], button {
+    input[type="text"],
+    button {
       width: 100%;
+      height: 44px; /* optional: fix input height */
       box-sizing: border-box;
+    }
+
+    input[type="text"] {
+      flex: none; /* override flex growth on small screens */
     }
   }
 </style>
