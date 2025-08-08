@@ -1,0 +1,257 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fishy — Grow & Eat (Canvas)</title>
+  <style>
+    html,body{height:100%;margin:0;background:linear-gradient(#7fd3ff,#79bfff);font-family:Inter,system-ui,Arial}
+    #gameWrap{display:flex;flex-direction:column;align-items:center;padding:12px}
+    canvas{background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.15), transparent 30%), linear-gradient(#98e6ff,#3aa0ff);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.18)}
+    .hud{display:flex;gap:12px;margin:10px;color:#012a4a;font-weight:700}
+    button{background:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.08)}
+    .footer{margin-top:8px;color:#012a4a;opacity:0.9}
+  </style>
+</head>
+<body>
+  <div id="gameWrap">
+    <h2 style="margin:0 0 6px 0;color:#012a4a">Fishy — Grow & Eat</h2>
+    <div class="hud">
+      <div id="score">Score: 0</div>
+      <div id="size">Size: 20</div>
+      <button id="pauseBtn">Pause</button>
+      <button id="restartBtn">Restart</button>
+    </div>
+    <canvas id="c" width="900" height="600"></canvas>
+    <div class="footer">Controls: Move mouse to steer — click to dash. Eat small fish & food to grow. Avoid bigger fish!</div>
+  </div><script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width, H = canvas.height;
+
+  // Game state
+  let mouse = {x: W/2, y: H/2, down:false};
+  let paused = false;
+  let score = 0;
+
+  const settings = {
+    foodCount: 18,
+    predatorCount: 5,
+    maxEntities: 120,
+  };
+
+  // Utility
+  function rand(min,max){return Math.random()*(max-min)+min}
+  function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+
+  // Player
+  const player = {
+    x: W/2, y: H/2, vx:0, vy:0,
+    size: 20,
+    color: '#ff6b6b',
+    speed: 2.6,
+    dashCooldown: 0
+  };
+
+  // Entities: food (tiny), fish (small edible), predators (bigger)
+  let entities = [];
+
+  function spawnFood(n){
+    for(let i=0;i<n;i++){
+      entities.push({
+        type: 'food',
+        x: rand(20,W-20), y: rand(20,H-20),
+        size: rand(4,10),
+        color: `hsl(${Math.floor(rand(30,80))},70%,60%)`,
+        vx: rand(-0.4,0.4), vy: rand(-0.4,0.4)
+      });
+    }
+  }
+
+  function spawnFish(n){
+    for(let i=0;i<n;i++){
+      let s = rand(12,40);
+      entities.push({
+        type: 'fish', x: rand(20,W-20), y: rand(20,H-20), size: s,
+        color: `hsl(${Math.floor(rand(160,300))},65%,55%)`,
+        vx: rand(-1,1), vy: rand(-1,1),
+        dir: rand(0,Math.PI*2)
+      });
+    }
+  }
+
+  function spawnPredators(n){
+    for(let i=0;i<n;i++){
+      let s = rand(45,110);
+      entities.push({
+        type: 'pred', x: rand(20,W-20), y: rand(20,H-20), size: s,
+        color: `hsl(${Math.floor(rand(0,40))},75%,45%)`,
+        vx: rand(-0.6,0.6), vy: rand(-0.6,0.6), dir: rand(0,Math.PI*2)
+      });
+    }
+  }
+
+  function reset(){
+    W = canvas.width = Math.min(window.innerWidth-40, 1200);
+    H = canvas.height = Math.min(window.innerHeight-180, 800);
+    player.x = W/2; player.y = H/2; player.size = 20; player.vx=0; player.vy=0; score=0;
+    entities = [];
+    spawnFood(settings.foodCount);
+    spawnFish(12);
+    spawnPredators(settings.predatorCount);
+    paused = false;
+  }
+
+  // Draw a simple fish shape
+  function drawFish(x,y,size,color,angle=0){
+    ctx.save(); ctx.translate(x,y); ctx.rotate(angle);
+    // body
+    ctx.beginPath(); ctx.ellipse(0,0,size*1.1,size,0,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
+    // tail
+    ctx.beginPath(); ctx.moveTo(-size*1.1,0); ctx.lineTo(-size*1.8,-size*0.7); ctx.lineTo(-size*1.8,size*0.7); ctx.closePath(); ctx.fill();
+    // eye
+    ctx.beginPath(); ctx.arc(size*0.45,-size*0.18,Math.max(1, size*0.12),0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
+    ctx.beginPath(); ctx.arc(size*0.48,-size*0.18,Math.max(0.6, size*0.06),0,Math.PI*2); ctx.fillStyle='#000'; ctx.fill();
+    ctx.restore();
+  }
+
+  // Game loop
+  let last = 0;
+  function update(ts){
+    if(!last) last=ts; const dt = Math.min(40, ts-last); last = ts;
+    if(paused){ draw(); requestAnimationFrame(update); return }
+
+    // player movement toward mouse
+    const angleToMouse = Math.atan2(mouse.y - player.y, mouse.x - player.x);
+    const targetSpeed = player.speed * Math.max(0.4, 1 - player.size/220);
+    player.vx += Math.cos(angleToMouse)*0.08;
+    player.vy += Math.sin(angleToMouse)*0.08;
+    // friction
+    player.vx *= 0.92; player.vy *= 0.92;
+    // dash
+    if(mouse.down && player.dashCooldown<=0){
+      player.vx += Math.cos(angleToMouse)*5; player.vy += Math.sin(angleToMouse)*5; player.dashCooldown = 28;
+    }
+    player.dashCooldown = Math.max(0, player.dashCooldown - 1);
+    player.x += player.vx; player.y += player.vy;
+    // clamp
+    player.x = Math.max(10, Math.min(W-10, player.x));
+    player.y = Math.max(10, Math.min(H-10, player.y));
+
+    // update entities
+    for(let i=entities.length-1;i>=0;i--){
+      const e = entities[i];
+      // simple wander for fish and predators
+      if(e.type!=='food'){
+        // move randomly and a bit toward/away from player
+        const a = Math.atan2(player.y - e.y, player.x - e.x);
+        const fear = (player.size > e.size*1.05) ? -0.6 : 0.4; // if player bigger, fish flees
+        const chase = (e.type==='pred' && e.size > player.size*1.1) ? 0.9 : 0;
+        e.vx += Math.cos(e.dir)*0.02 + Math.cos(a)*(-fear + chase)*0.015;
+        e.vy += Math.sin(e.dir)*0.02 + Math.sin(a)*(-fear + chase)*0.015;
+        e.vx *= 0.97; e.vy *= 0.97;
+        e.x += e.vx; e.y += e.vy;
+        // bounce
+        if(e.x < 10 || e.x > W-10){ e.vx *= -1; e.dir = rand(0,Math.PI*2)}
+        if(e.y < 10 || e.y > H-10){ e.vy *= -1; e.dir = rand(0,Math.PI*2)}
+      } else {
+        e.x += e.vx; e.y += e.vy;
+        if(e.x<6||e.x>W-6) e.vx *= -1;
+        if(e.y<6||e.y>H-6) e.vy *= -1;
+      }
+
+      // interaction with player
+      const d = Math.hypot(player.x - e.x, player.y - e.y);
+      if(d < player.size + e.size*0.9){
+        if(player.size > e.size * 1.12){
+          // player eats e
+          score += Math.floor(e.size * (e.type==='food'?1:4));
+          player.size += e.size*0.14;
+          // remove entity and maybe spawn smaller ones
+          entities.splice(i,1);
+          // spawn tiny food occasionally
+          if(e.type!=='food' && Math.random()<0.35) spawnFood(1);
+          // cap count
+          if(entities.length < settings.foodCount) spawnFood(1 + Math.floor(Math.random()*2));
+        } else if(e.type === 'pred' && e.size > player.size*1.08){
+          // predator hits player -> shrink & lose score
+          player.size = Math.max(12, player.size - e.size*0.25);
+          score = Math.max(0, Math.floor(score - e.size*0.6));
+          // knockback
+          const ang = Math.atan2(player.y-e.y, player.x-e.x);
+          player.vx += Math.cos(ang)*6; player.vy += Math.sin(ang)*6;
+        }
+      }
+    }
+
+    // random spawn increases as player grows
+    if(Math.random() < 0.016 && entities.length < settings.maxEntities) spawnFood(1);
+    if(Math.random() < 0.004 && entities.length < settings.maxEntities) spawnFish(1);
+
+    // update HUD
+    document.getElementById('score').textContent = 'Score: ' + score;
+    document.getElementById('size').textContent = 'Size: ' + Math.round(player.size);
+
+    draw();
+    requestAnimationFrame(update);
+  }
+
+  function draw(){
+    // clear
+    ctx.clearRect(0,0,W,H);
+    // water gradient overlay
+    const g = ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'rgba(255,255,255,0.05)'); g.addColorStop(1,'rgba(0,0,0,0.02)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    // draw entities (food first)
+    for(const e of entities){
+      if(e.type==='food'){
+        ctx.beginPath(); ctx.arc(e.x,e.y,e.size,0,Math.PI*2); ctx.fillStyle=e.color; ctx.fill();
+        // little sparkle
+        ctx.beginPath(); ctx.arc(e.x - e.size*0.4, e.y - e.size*0.45, Math.max(1, e.size*0.25), 0, Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.fill();
+      } else {
+        const ang = Math.atan2((e.vy||0),(e.vx||0));
+        drawFish(e.x,e.y,e.size,e.color,ang);
+      }
+    }
+
+    // draw player with a glow
+    ctx.save();
+    ctx.shadowBlur = Math.min(60, player.size*1.6); ctx.shadowColor = 'rgba(255,255,255,0.15)';
+    drawFish(player.x, player.y, player.size, player.color, Math.atan2(player.vy, player.vx));
+    ctx.restore();
+
+    // top-left text
+    if(paused){
+      ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fillRect(W/2-140,H/2-32,280,64);
+      ctx.fillStyle='#fff'; ctx.font='20px sans-serif'; ctx.textAlign='center'; ctx.fillText('PAUSED', W/2, H/2+7);
+    }
+  }
+
+  // input
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  canvas.addEventListener('mousedown', e=>{ mouse.down = true });
+  window.addEventListener('mouseup', e=>{ mouse.down = false });
+  // keyboard controls
+  window.addEventListener('keydown', e=>{
+    if(e.key === 'p') togglePause();
+    if(e.key === 'r') reset();
+  });
+
+  document.getElementById('pauseBtn').addEventListener('click', togglePause);
+  document.getElementById('restartBtn').addEventListener('click', reset);
+
+  function togglePause(){ paused = !paused; document.getElementById('pauseBtn').textContent = paused? 'Resume':'Pause'; }
+
+  // responsive
+  window.addEventListener('resize', ()=>{ reset(); });
+
+  // start
+  reset(); requestAnimationFrame(update);
+})();
+</script></body>
+</html>
