@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mocha Monkey — Vintage Apparel</title>
+  <meta name="description" content="Mocha Monkey vintage-inspired apparel for laid-back coffeehouse energy, without selling coffee." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top">
+        <span class="brand-mark">MM</span>
+        <span class="brand-text">mocha monkey</span>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#featured">Featured</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☼</button>
+        <a class="pill-button" href="#shop">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Vintage apparel brand</p>
+          <h1>Wear the vibe of <span>mocha monkey</span>.</h1>
+          <p class="hero-text">
+            A laid-back apparel brand built around the logo, the attitude, and that sun-faded
+            tropical café energy. No beans for sale. Just clean merch with personality.
+          </p>
+
+          <div class="hero-cta-row">
+            <a class="button primary" href="#shop">Shop the Drop</a>
+            <a class="button secondary" href="#about">Our Story</a>
+          </div>
+
+          <ul class="hero-points">
+            <li>Soft heavyweight tees</li>
+            <li>Vintage-wash hoodies</li>
+            <li>Caps and long sleeves</li>
+          </ul>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-badge">New season</div>
+          <img src="assets/logo.png" alt="Mocha Monkey logo" class="hero-logo" />
+          <div class="hero-card-bottom">
+            <div>
+              <p class="mini-label">Best seller</p>
+              <h3>Logo Pullover Hoodie</h3>
+            </div>
+            <span class="price">$48</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strip">
+      <div class="container strip-items">
+        <span>Small-batch style</span>
+        <span>•</span>
+        <span>Retro island energy</span>
+        <span>•</span>
+        <span>Streetwear meets souvenir-shop cool</span>
+      </div>
+    </section>
+
+    <section class="collection" id="shop">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Shop apparel</p>
+            <h2>Core collection</h2>
+          </div>
+          <p class="section-copy">Everything here is centered around the Mocha Monkey identity, printed big and worn easy.</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-image-wrap"><img src="assets/tee.png" alt="Mocha Monkey t-shirt" /></div>
+            <div class="product-meta">
+              <span class="tag">Vintage tee</span>
+              <h3>Monkey Logo Tee</h3>
+              <p>Heavy cotton, relaxed fit, washed espresso colorway.</p>
+              <div class="product-row"><strong>$28</strong><button>Add to cart</button></div>
+            </div>
+          </article>
+
+          <article class="product-card featured-card">
+            <div class="product-image-wrap"><img src="assets/hoodie.png" alt="Mocha Monkey hoodie" /></div>
+            <div class="product-meta">
+              <span class="tag">Best seller</span>
+              <h3>Sunrise Hoodie</h3>
+              <p>Soft brushed fleece with the full logo front print.</p>
+              <div class="product-row"><strong>$48</strong><button>Add to cart</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image-wrap"><img src="assets/hat.png" alt="Mocha Monkey hat" /></div>
+            <div class="product-meta">
+              <span class="tag">Trucker cap</span>
+              <h3>Tropic Mesh Hat</h3>
+              <p>Curved bill cap with vintage green front panel.</p>
+              <div class="product-row"><strong>$30</strong><button>Add to cart</button></div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image-wrap"><img src="assets/longsleeve.png" alt="Mocha Monkey long sleeve shirt" /></div>
+            <div class="product-meta">
+              <span class="tag">Long sleeve</span>
+              <h3>Coastline Long Sleeve</h3>
+              <p>Cream heavyweight long sleeve with a crisp front logo hit.</p>
+              <div class="product-row"><strong>$36</strong><button>Add to cart</button></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-band" id="featured">
+      <div class="container feature-grid">
+        <div class="feature-copy">
+          <p class="eyebrow">Featured look</p>
+          <h2>Built like a real brand from day one.</h2>
+          <p>
+            This landing page is designed to feel like a genuine apparel company: strong hero,
+            merch grid, story section, newsletter capture, and a polished footer ready for GitHub Pages.
+          </p>
+          <div class="stats">
+            <div><strong>4</strong><span>launch products</span></div>
+            <div><strong>100%</strong><span>static site</span></div>
+            <div><strong>Easy</strong><span>to customize</span></div>
+          </div>
+        </div>
+        <div class="feature-image-card">
+          <img src="assets/lifestyle.png" alt="People wearing Mocha Monkey apparel" />
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow">About the brand</p>
+          <h2>Mocha Monkey is merch-first.</h2>
+        </div>
+        <div>
+          <p>
+            The heart of the brand is the logo: playful, nostalgic, and a little sun-faded. It reads like an old-school tropical café,
+            but the business is really about apparel and lifestyle goods. Think vintage souvenir shirt energy, reworked into a clean modern brand.
+          </p>
+          <p>
+            Swap product names, colors, links, and copy however you want. This site is structured so you can keep building on it later.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="container newsletter-box">
+        <div>
+          <p class="eyebrow">Stay in the loop</p>
+          <h2>Get launch news and future drops.</h2>
+        </div>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" placeholder="Email address" aria-label="Email address" />
+          <button type="submit">Join the troop</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">FAQ</p>
+            <h2>Quick answers</h2>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>Is this a real store checkout?</summary>
+            <p>Not yet. This is a polished front-end starter site. You can later connect Shopify, Snipcart, Stripe, or another cart system.</p>
+          </details>
+          <details>
+            <summary>Can I host this on GitHub Pages?</summary>
+            <p>Yes. Upload the files as-is to a GitHub repository and enable Pages. No build step is required.</p>
+          </details>
+          <details>
+            <summary>Can the images and text be replaced?</summary>
+            <p>Yes. Swap the assets in the assets folder and update the copy in index.html.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand footer-brand">
+          <span class="brand-mark">MM</span>
+          <span class="brand-text">mocha monkey</span>
+        </div>
+        <p>Vintage tropical apparel built around a logo with personality.</p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div>
+        <h4>Follow</h4>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
